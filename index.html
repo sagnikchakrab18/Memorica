@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Memorica</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Memorica</h1>
+  <h3>My Personal Diary</h3>
+  <h4>Collecting my memories..keeping it in <strong>Memorica</strong> in a safer way!</h4>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Memorica</a>
+    </div>
+	<div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <!how to add records??><li><a href="about.html">About</a></li>
+        <li><a href="#">Gallery</a></li>
+      </ul>
+	  <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+      </form>
+	 <ul class="nav navbar-nav navbar-right">
+	<button type="button" class="btn btn-primary" id="ready" data-toggle="modal" data-target="#loginModal">Ready to Write</button>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+
+ <!--==========================
+
+        Login modal start
+
+    ============================-->
+
+ <div id="loginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>User Login</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="contactForm" method="POST" action="operation.php">
+                        <input type="email" name="lemail" id="lg_email" placeholder="Email" maxlength="60" class="form-control" required style="margin-bottom:5px;" />
+                        <input type="password" name="lpwd" id="lg_pwd" placeholder="Password" maxlength="20" class="form-control" data-rule="minlen:6" data-msg="Password must be at least 6 character..." required style="margin-bottom:5px;" />
+                        <div class="btn-group">
+                            <input type="submit" name="loginsubmit" value="Login" class="btn btn-info" />
+                            <button type="reset" name="reset" class="btn btn-info"><span class="glyphicon glyphicon-refresh"></span></button>
+                        </div>
+                        <!--<input type="button" name="create_user" value="Create User" class="btn btn-info" data-toggle="modal" data-target="#forgotPassword" data-dismiss="modal" />-->
+                        <span  data-toggle="modal" data-target="#forgotPassword" data-dismiss="modal">Forgot password?</span>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#RegisterModal" data-dismiss="modal">Register</button>
+
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+ <!--==========================
+
+        Login modal end
+
+    ============================-->
+
+    <!--==========================
+
+        forgotPassword modal start
+
+    ============================-->
+
+    <div id="forgotPassword"   class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Forgot Password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="contactForm">
+                        <input type="email" name="email" id="fp_email" placeholder="Email" maxlength="60" class="form-control"
+required style="margin-bottom:5px;" />
+
+                        <div class="btn-group">
+                            <input type="submit" name="submit" onClick="sendOTP()" value="Send OTP" class="btn btn-info" />
+                            <button type="reset" name="reset" class="btn btn-info"><span class="glyphicon glyphicon-refresh"></span></button>
+                        </div>
+                        <input type="button" name="create_user" value="Login" class="btn btn-info" data-toggle="modal" data-target="#loginModal" data-dismiss="modal" />
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#RegisterModal" data-dismiss="modal">Register</button>
+
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--==========================
+
+        forgotPassword modal end
+
+    ============================-->
+
+
+ <!--==========================
+
+        Register modal start
+
+    ============================-->
+
+    <div id="RegisterModal" class="modal fade" role="dialog"><!Check method POST>
+
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Register</h4>
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <!--Register to write in my diary...-->
+
+                    <form class="contactForm" method="POST" action="operation.php">
+
+                        <input type="text" name="fname" id="fname" placeholder="First Name" maxlength="20" class="form-control" required style="margin-bottom:5px;" />
+
+                        <input type="text" name="lname" id="lname" placeholder="Last Name" maxlength="20" class="form-control" required style="margin-bottom:5px;" />
+			<input type="date" id="dob" name="bday" required style="margin-bottom:5px;" />
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<input type="radio" id="gm" name="gender" value="m" required>Male
+			<input type="radio" id="gf" name="gender" value="f" required>Female
+  			<input type="radio" id="go" name="gender" value="o" required>Others
+			<input type="email" name="email" id="reg_email" placeholder="Email" maxlength="60" class="form-control" required style="margin-bottom:5px;" />
+			<input type="password" name="pwd" id="reg_pwd" placeholder="Password" maxlength="20" class="form-control" data-rule="minlen:6" data-msg="Password must be at least 6 character..." required style="margin-bottom:5px;" />
+			<input type="password" name="cpwd" id="creg_pwd" placeholder="Confirm Password" maxlength="20" class="form-control" data-rule="minlen:6" data-msg="Password must be at least 6 character..." required style="margin-bottom:5px;" onblur="pwdFunction()" />
+
+                        <div class="btn-group">
+
+                            <input type="submit" id="rg_submit" name="submit" value="Register" class="btn btn-info" disabled />
+
+                            <button type="reset" name="reset" class="btn btn-info"><span class="glyphicon glyphicon-refresh"></span></button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">User Login</button>
+
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--==========================
+
+        Register modal end
+
+    ============================-->
+
+ <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="thumbnail">
+        <a href="diary.jpg" target="_blank">
+          <img src="diary.jpg" class="img-rounded" alt="works" style="width:100%; height: 800px">
+          <div class="caption">
+		    <h3>works</h3>
+            <p>I have done some project works. If you are interested then let me know.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<script>
+function pwdFunction(){
+  var pwd = document.getElementById("reg_pwd").value;
+  var cpwd = document.getElementById("creg_pwd").value;
+  if(pwd == cpwd){
+	document.getElementById('rg_submit').disabled = false;
+  }else{
+	window.alert("Passwords are not same.Check again");
+	document.getElementById('rg_submit').disabled = true;
+  }
+}
+</script>
+
+</body>
+</html>
